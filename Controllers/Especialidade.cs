@@ -22,7 +22,7 @@ namespace Controllers
                 throw new Exception("Tarefa inválida");
             }
 
-            return new Especialidade(Descricao, Tarefas);
+            return new Especialidade();
         }
 
         public static Especialidade AlterarEspecialidade(

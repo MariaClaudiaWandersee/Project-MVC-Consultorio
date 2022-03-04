@@ -8,13 +8,13 @@ namespace Controllers
     public class AgendamentoProcedimentoController
     {
         public static AgendamentoProcedimento InserirAgendamentoProcedimento(
-            int IdAgendamento,
-            int IdProcedimento
+            int AgendamentoId,
+            int ProcedimentoId
         )
         {
-            PacienteController.GetAgendamento(IdAgendamento);
-            DentistaController.GetProcedimento(IdProcedimento);
-            return new AgendamentoProcedimento(IdAgendamento, IdProcedimento);
+            PacienteController.GetAgendamento(AgendamentoId);
+            DentistaController.GetProcedimento(ProcedimentoId);
+            return new AgendamentoProcedimento();
         }
 
         public static AgendamentoProcedimento ExcluirAgendamentoProcedimento(

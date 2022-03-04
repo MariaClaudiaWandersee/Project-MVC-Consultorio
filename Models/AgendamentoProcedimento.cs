@@ -1,37 +1,40 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using Repository;
+
 
 namespace Models
 {
     public class AgendamentoProcedimento
     {
-        public static int ID = 0;
-        private static List<AgendamentoProcedimento> AgendamentoProcedimentos = new List<AgendamentoProcedimento>();
         public int Id { set; get; }
-        public int IdAgendamento { set; get; }
+        [Required]
+        public int AgendamentoId { set; get; }
+        [Required]
         public Agendamento Agendamento { set; get; }
-        public int IdProcedimento { set; get; }
+        [Required]
+        public int ProcedimentoId { set; get; }
+        [Required]
         public Procedimento Procedimento { set; get; }
 
-        public AgendamentoProcedimento(
-            int IdAgendamento,
-            int IdProcedimento
-        ) : this(++ID, IdAgendamento, IdProcedimento)
+        public AgendamentoProcedimento()
         {}
 
         private AgendamentoProcedimento(
             int Id,
-            int IdAgendamento,
-            int IdProcedimento
+            int AgendamentoId,
+            int ProcedimentoId
         )
         {
             this.Id = Id;
-            this.IdAgendamento = IdAgendamento;
-            this.Agendamento = Agendamento.GetAgendamentos().Find(Agendamento => Agendamento.Id == IdAgendamento);
-            this.IdProcedimento = IdProcedimento;
-            this.Procedimento = Procedimento.GetProcedimentos().Find(Procedimento => Procedimento.Id == IdProcedimento);
+            this.AgendamentoId = AgendamentoId;
+            this.Agendamento = Agendamento.GetAgendamentos().Find(Agendamento => Agendamento.Id == AgendamentoId);
+            this.ProcedimentoId = ProcedimentoId;
+            this.Procedimento = Procedimento.GetProcedimentos().Find(Procedimento => Procedimento.Id == ProcedimentoId);
             
-            AgendamentoProcedimentos.Add(this);
+            //AgendamentoProcedimentos.Add(this);
         }
 
         public override bool Equals(object obj)
@@ -49,14 +52,16 @@ namespace Models
         }
         public static List<AgendamentoProcedimento> GetAgendamentoProcedimentos()
         {
-            return AgendamentoProcedimentos;
+            Context db = new Context();
+            return (from AgendamentoProcedimento in db.AgendamentoProcedimentos select AgendamentoProcedimento).ToList();
         }
 
         public static void RemoverAgendamentoProcedimento(
             AgendamentoProcedimento agendamentoProcedimento
         )
         {
-            AgendamentoProcedimentos.Remove(agendamentoProcedimento);
+            Context db = new Context();
+            db.AgendamentoProcedimentos.Remove(agendamentoProcedimento);
         }
 
     }

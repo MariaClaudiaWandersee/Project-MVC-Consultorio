@@ -1,12 +1,24 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using Repository;
+
 namespace Models
 {
     public class Pessoa
     {
+        [Required]
         public int Id { get; set; }
+        [Required]
         public string Nome { get; set; }
+        [Required]
         public string Cpf { get; set; }
+        [Required]
         public string Fone { get; set; }
+        [Required]
         public string Email { get; set; }
+        [Required]
         public string Senha { get; set; }
 
         public override string ToString()
@@ -17,9 +29,11 @@ namespace Models
                 + $"\nTelefone: {this.Fone}"
                 + $"\nEmail: {this.Email}";
         }
+        
+        public Pessoa()
+        {}
 
         public Pessoa(
-            int Id,
             string Nome,
             string Cpf,
             string Fone,
@@ -27,7 +41,6 @@ namespace Models
             string Senha
         )
         {
-            this.Id = Id;
             this.Nome = Nome;
             this.Cpf = Cpf;
             this.Fone = Fone;

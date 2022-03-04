@@ -1,52 +1,65 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using Repository;
 
 namespace Models
 {
     public class Agendamento
     {
-        public static int ID = 0;
-        private static List<Agendamento> Agendamentos = new List<Agendamento>();
+    
         public int Id { set; get; }
-        public int IdPaciente { set; get; }
+        [Required]
+        public int PacienteId { set; get; }
+        [Required]
         public Paciente Paciente { get; }
-        public int IdDentista { set; get; }
+        [Required]
+        public int DentistaId { set; get; }
+        [Required]
         public Dentista Dentista { get; }
-        public int IdSala { set; get; }
+        [Required]
+        public int SalaId { set; get; }
+        [Required]
         public Sala Sala { get; }
+        [Required]
         public DateTime Data { set; get; }
+        [Required]
         public string Procedimento { set; get; }
+        [Required]
         public bool Confirmado { set; get; }
 
         public Agendamento(
-            int IdPaciente,
-            int IdDentista,
-            int IdSala,
+            int PacienteId,
+            int DentistaId,
+            int SalaId,
             DateTime Data,
             string Procedimento
-        ) : this(++ID, IdPaciente, IdDentista, IdSala, Data, Procedimento)
+        )
         {}
 
         private Agendamento(
             int Id,
-            int IdPaciente,
-            int IdDentista,
-            int IdSala,
+            int PacienteId,
+            int DentistaId,
+            int SalaId,
             DateTime Data,
             string Procedimento
         )
         {
             this.Id = Id;
-            this.IdPaciente = IdPaciente;
-            this.Paciente = Paciente.GetPacientes().Find(Paciente => Paciente.Id == IdPaciente);
-            this.IdDentista = IdDentista;
-            this.Dentista = Dentista.GetDentistas().Find(Dentista => Dentista.Id == IdDentista);
-            this.IdSala = IdSala;
-            this.Sala = Sala.GetSalas().Find(Sala => Sala.Id == IdSala);
+            this.PacienteId = PacienteId;
+            this.Paciente = Paciente.GetPacientes().Find(Paciente => Paciente.Id == PacienteId);
+            this.DentistaId = DentistaId;
+            this.Dentista = Dentista.GetDentistas().Find(Dentista => Dentista.Id == DentistaId);
+            this.SalaId = SalaId;
+            this.Sala = Sala.GetSalas().Find(Sala => Sala.Id == SalaId);
             this.Data = Data;
             this.Procedimento = Procedimento;
+            Context db = new Context();
+            db.Agendamentos.Add(this);
+            db.SaveChanges();
 
-            Agendamentos.Add(this);
         }
 
         public override string ToString()
@@ -75,14 +88,16 @@ namespace Models
         }
         public static List<Agendamento> GetAgendamentos()
         {
-            return Agendamentos;
+            Context db = new Context();
+            return (from Agendamento in db.Agendamentos select Agendamento).ToList();
         }
 
         public static void RemoverAgendamento(
             Agendamento agendamento
         )
         {
-            Agendamentos.Remove(agendamento);
+            Context db = new Context();
+            db.Agendamentos.Remove(agendamento);
         }
 
     }

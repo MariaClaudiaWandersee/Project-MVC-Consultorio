@@ -22,7 +22,7 @@ namespace Controllers
             {
                 throw new Exception("Preco inválido");
             }
-            return new Procedimento(Descricao, Preco);
+            return new Procedimento();
         }
 
         public static Procedimento AlterarProcedimento(

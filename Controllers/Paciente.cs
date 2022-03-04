@@ -50,7 +50,7 @@ namespace Controllers
                 throw new Exception("Data de Nacimento inválida");
             }
 
-            return new Paciente(Nome, Cpf, Fone, Email, Senha, DataNascimento);
+            return new Paciente();
         }
 
         internal static void GetAgendamento(int idAgendamento)
