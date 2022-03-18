@@ -41,6 +41,10 @@ namespace Models
             this.Salario = Salario;
             this.EspecialidadeId = EspecialidadeId;
             this.Especialidade = Especialidade.GetEspecialidades().Find(Especialidade => Especialidade.Id == EspecialidadeId);
+
+            Context db = new Context();
+            db.Dentistas.Add(this);
+            db.SaveChanges();
         }
         
         public static List<Dentista> GetDentistas()

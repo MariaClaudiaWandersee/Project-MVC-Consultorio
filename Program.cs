@@ -2,6 +2,7 @@ using System;
 using Views;
 using Controllers;
 using Models;
+using System.Windows.Forms;
 
 namespace Principal
 {
@@ -35,6 +36,7 @@ namespace Principal
             Console.WriteLine();
             return password;
         }
+        
         public static void Main(string[] args)
         {
             EspecialidadeController.InserirEspecialidade("Endodontia", "Estruturas internas dos dentes");
@@ -69,6 +71,7 @@ namespace Principal
                 }
             } while (!Auth.isLogged);
         }
+
 
         public static void MenuPaciente()
         {

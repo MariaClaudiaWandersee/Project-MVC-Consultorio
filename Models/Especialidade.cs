@@ -32,6 +32,10 @@ namespace Models
             this.Id = Id;
             this.Descricao = Descricao;
             this.Tarefas = Tarefas;
+            
+            Context db = new Context();
+            db.Especialidades.Add(this);
+            db.SaveChanges();
         }
 
 

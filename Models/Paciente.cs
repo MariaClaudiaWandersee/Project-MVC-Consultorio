@@ -20,7 +20,7 @@ namespace Models
         public Paciente()
         {}
 
-        private Paciente(
+        public Paciente(
             string Nome,
             string Cpf,
             string Fone,
@@ -35,6 +35,10 @@ namespace Models
             this.Email = Email;
             this.Senha = Senha;
             this.DataNascimento = DataNascimento;
+
+            /*Context db = new Context();
+            db.Pacientes.Add(this);
+            db.SaveChanges();*/
         }
 
         public static List<Paciente> GetPacientes()
